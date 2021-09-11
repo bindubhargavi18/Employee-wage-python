@@ -1,23 +1,32 @@
 import random
 
 wage_per_hr = 20
+full_day_hrs = 8
+part_time_hrs = 4
 emp_check = int(random.randint(0, 2))
 
 
-def employee_attendance():
-    if emp_check == 1:
-        print("Employee is present")
-        full_day_hrs = 8
-        emp_wage = full_day_hrs * wage_per_hr
-    elif emp_check == 2:
-        print("Employee worked as part-time")
-        part_time_hrs = 4
-        emp_wage = part_time_hrs * wage_per_hr
-    else:
-        print("Employee is absent")
-        emp_wage = 0
-    print("Employee wage is: ", emp_wage)
+def is_full_time():
+    return "Full-Time Employee wage is: ", full_day_hrs * wage_per_hr
 
 
+def is_part_time():
+    return "Part- Time Employee wage is: ", part_time_hrs * wage_per_hr
+
+
+def is_absent():
+    return "Employee is absent: wage is 0"
+
+
+def default():
+    return "Invalid choice"
+
+
+employee_wage = {
+    0: is_absent,
+    1: is_part_time,
+    2: is_full_time
+}
 if __name__ == "__main__":
-    employee_attendance()
+    result = employee_wage.get(emp_check, default)()
+    print(result)
